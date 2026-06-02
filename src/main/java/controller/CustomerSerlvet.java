@@ -692,14 +692,15 @@ public class CustomerSerlvet extends HttpServlet {
 
         }
 
-        if (paymentMethods[0].equals("2")) {
-            String url = "";
+        if (paymentMethods != null
+                && paymentMethods.length > 0
+                && "2".equals(paymentMethods[0])) {
+
             String amount = String.valueOf(order.getTotal());
             amount = amount.replaceAll("\\.0$", "");
-            System.out.println(amount);
-            url = ("http://localhost:8080/vnpay?amount=" + amount);
-            resp.sendRedirect(url);
 
+            String url = "http://localhost:8080/vnpay?amount=" + amount;
+            resp.sendRedirect(url);
         } else {
 //            List<CartItem> cartItems = (List<CartItem>) session.getAttribute("selectedCartItems");
 ////            for (CartItem cartItem : cartItems) {
