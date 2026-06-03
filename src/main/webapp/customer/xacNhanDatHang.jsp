@@ -97,7 +97,7 @@
             <tr>
                 <td>Phương thức thanh toán: </td>
                 <td>
-                    <input class="form-check-input" style="margin-bottom: 10px" type="radio" id="cash_on_delivery" name="payment_method" value="1">
+                    <input class="form-check-input" style="margin-bottom: 10px" type="radio" id="cash_on_delivery" name="payment_method" value="1" checked>
                     <label for="cash_on_delivery">Thanh toán khi nhận hàng</label><br>
 <%--                    <input class="form-check-input" type="radio" id="bank_transfer" name="payment_method" value="2">--%>
 <%--                    <label for="bank_transfer">Thanh toán qua ngân hàng</label>--%>
