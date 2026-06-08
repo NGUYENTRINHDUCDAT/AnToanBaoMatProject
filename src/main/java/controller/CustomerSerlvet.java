@@ -725,7 +725,7 @@ public class CustomerSerlvet extends HttpServlet {
             for (OrderItem orderItem: order.getOrderItems()){
                 sb.append(orderItem.getProduct().getId() + ":" + orderItem.getQuantity());
             }
-            String message = order.getCustomer().getId() + order.getCustomer().getUsername() + order.getTotal()  +order.getTo_address() + order.getNumberPhone() +order.getNote() + order.getToName() + SecretKey.getSecretKeyAsBase64() + sb.toString();
+            String message = order.getCustomer().getId() + order.getCustomer().getUsername() + order.getTotal()  +order.getTo_address() + order.getNumberPhone() +order.getNote() + order.getToName()  + sb.toString();
             String hash = sha.hashText(message);
             session.setAttribute("hash_code", hash);
             System.out.println(message);
@@ -1348,7 +1348,7 @@ public class CustomerSerlvet extends HttpServlet {
         for (OrderItem orderItem: order.getOrderItems()){
             sb.append(orderItem.getProduct().getId() + ":" + orderItem.getQuantity());
         }
-        String message = order.getCustomer().getId() + order.getCustomer().getUsername() + order.getTotal()  +order.getTo_address() + order.getNumberPhone() +order.getNote() + order.getToName() + SecretKey.getSecretKeyAsBase64() + sb.toString();
+        String message = order.getCustomer().getId() + order.getCustomer().getUsername() + order.getTotal()  +order.getTo_address() + order.getNumberPhone() +order.getNote() + order.getToName() + sb.toString();
         String hash = sha.hashText(message);
         System.out.println("message edit:" + message);
         session.setAttribute("hash_code", hash);
@@ -1438,7 +1438,7 @@ public class CustomerSerlvet extends HttpServlet {
                for (OrderItem orderItem: order.getOrderItems()){
                    sb.append(orderItem.getProduct().getId() + ":" + orderItem.getQuantity());
                }
-               String message = order.getCustomer().getId() + order.getCustomer().getUsername() + order.getTotal()  +order.getTo_address() + order.getNumberPhone() +order.getNote() + order.getToName() + SecretKey.getSecretKeyAsBase64() + sb.toString();
+               String message = order.getCustomer().getId() + order.getCustomer().getUsername() + order.getTotal()  +order.getTo_address() + order.getNumberPhone() +order.getNote() + order.getToName() + sb.toString();
                String hash = sha.hashText(message);
                System.out.println("Hash Tao: " + hash);
                System.out.println("Hash Order: " + order.getHash());
