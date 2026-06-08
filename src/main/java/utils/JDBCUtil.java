@@ -9,9 +9,14 @@ public class JDBCUtil {
     public static Connection getConnection() throws SQLException {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
-            String url = "jdbc:mysql://localhost:3306/projectweb";
-            String username = "root";
-            String password = "root";
+
+            String url = System.getenv().getOrDefault(
+                    "DB_URL",
+                    "jdbc:mysql://localhost:3306/projectweb"
+            );
+            String username = System.getenv().getOrDefault("DB_USERNAME", "root");
+            String password = System.getenv().getOrDefault("DB_PASSWORD", "");
+
             return DriverManager.getConnection(url, username, password);
         } catch (ClassNotFoundException e) {
             throw new SQLException("MySQL JDBC Driver không được tìm thấy", e);
