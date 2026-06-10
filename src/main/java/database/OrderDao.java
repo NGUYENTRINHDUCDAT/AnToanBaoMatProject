@@ -164,7 +164,7 @@ public class OrderDao extends AbsDao<Order>{
         }catch (Exception e) {
             e.printStackTrace();
         }
-        return orders.get(0);
+        return orders.isEmpty() ? null : orders.get(0);
     }
     public ArrayList<Order> selectByCustomerId(int customerId) {
         ArrayList<Order> orders = new ArrayList<>();
