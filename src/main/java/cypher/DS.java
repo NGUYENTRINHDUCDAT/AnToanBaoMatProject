@@ -24,7 +24,7 @@ public class DS {
     }
     public String signData(String data) throws Exception {
         if (privateKey == null) {
-            throw new IllegalStateException("Chưa tạo khóa, hãy gọi generateKeyPair() trước.");
+            throw new IllegalStateException("Chưa tạo chìa  khóa, hãy gọi generateKeyPair() trước.");
         }
         Signature signature = Signature.getInstance("SHA256withRSA");
         signature.initSign(privateKey);
@@ -72,15 +72,5 @@ public class DS {
         }
     }
 
-    public static void main(String[] args) throws Exception {
-        DS ds = new DS();
-        ds.generateKey();
-        String text = "Van ban Duoc Ki";
-        String signature =ds.signData(text);
-        System.out.println(signature);
-        System.out.println("PublicKey = " + ds.exportPublicKey());
-        System.out.println("PrivateKey = " + ds.exportPrivateKey());
-        boolean verify = ds.verifySignature(text, signature);
-        System.out.println(verify);
-    }
+
 }
