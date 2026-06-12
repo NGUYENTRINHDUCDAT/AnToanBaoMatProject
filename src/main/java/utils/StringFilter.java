@@ -48,6 +48,11 @@ public class StringFilter {
 
     public static String maskEmail(String email) {
         {
+            // Kiểm tra email null hoặc không đúng định dạng cơ bản.
+            if (email == null || !email.contains("@")) {
+                return "";
+            }
+            // Tìm vị trí ký tự @ để tách phần tên người dùng và tên miền email.
             int atIndex = email.indexOf('@');
             String username = email.substring(0, atIndex);
             String domain = email.substring(atIndex);
