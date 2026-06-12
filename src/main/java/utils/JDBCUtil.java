@@ -10,6 +10,8 @@ public class JDBCUtil {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
 
+            // Kết nối tới database chính của project.
+            // Nếu máy local không có mật khẩu MySQL, để password = "".
             String url = System.getenv().getOrDefault(
                     "DB_URL",
                     "jdbc:mysql://localhost:3306/projectweb"
