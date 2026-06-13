@@ -68,8 +68,5 @@ public class PaymentMethodDao implements IDao<PaymentMethod>{
         return paymentMethod;
     }
 
-    public static void main(String[] args) {
-        PaymentMethodDao dao = new PaymentMethodDao();
-        System.out.println(dao.selectAll().size());
-    }
+
 }

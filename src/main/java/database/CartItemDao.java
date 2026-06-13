@@ -139,9 +139,5 @@ public class CartItemDao extends AbsDao<CartItem> {
         return cartItems.isEmpty() ? null : cartItems.get(0);
     }
 
-    public static void main(String[] args) {
-        CartItemDao cartItemDao = new CartItemDao();
-        CartDao cartDao = new CartDao();
-        System.out.println(cartItemDao.selectCartItemsByCartId(cartDao.selectByCustomerId(1).getId()).size());
-    }
+
 }

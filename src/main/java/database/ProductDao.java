@@ -562,10 +562,7 @@ public class ProductDao extends AbsDao<Product> {
 
 
 
-    public static void main(String[] args) {
-        ProductDao productDao = new ProductDao();
-        System.out.println(productDao.selectTrendProduct().size());
-    }
+
 
 
 }

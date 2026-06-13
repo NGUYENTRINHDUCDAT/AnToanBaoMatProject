@@ -8,9 +8,7 @@ import java.util.List;
 public class CartItemService {
     CartItemDao cartItemDao;
 
-    public CartItemService() {
-        this.cartItemDao = new CartItemDao();
-    }
+
 
     public int insert(CartItem cartItem) {
         return cartItemDao.insert(cartItem);
@@ -27,10 +25,5 @@ public class CartItemService {
     public CartItem selectById(int id) {
         return cartItemDao.selectById(id);
     }
-    public List<CartItem> selectCartItemsByCartId(int cartId) {
-        return cartItemDao.selectCartItemsByCartId(cartId);
-    }
-    public CartItem selectCartItemsByCartIdAndProductId(int cartId, int product_id) {
-        return cartItemDao.selectCartItemsByCartIdAndProductId(cartId, product_id);
-    }
+
     }
