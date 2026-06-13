@@ -1,7 +1,7 @@
 package controller;
 
-import com.google.gson.Gson;
-import com.google.gson.JsonObject;
+//import com.google.gson.Gson;
+//import com.google.gson.JsonObject;
 import vnpay.Config;
 
 import javax.servlet.ServletException;
@@ -96,12 +96,13 @@ public class VnPayServlet extends HttpServlet {
         String paymentUrl = Config.vnp_PayUrl + "?" + queryUrl;
         System.out.println(paymentUrl);
         resp.sendRedirect(paymentUrl);
-        JsonObject job = new JsonObject();
-        job.addProperty("code", "00");
-        job.addProperty("message", "success");
-        job.addProperty("data", paymentUrl);
-        Gson gson = new Gson();
-        resp.getWriter().write(gson.toJson(job));
+        // Bỏ phần Json bị lỗi
+//        JsonObject job = new JsonObject();
+//        job.addProperty("code", "00");
+//        job.addProperty("message", "success");
+//        job.addProperty("data", paymentUrl);
+//        Gson gson = new Gson();
+//        resp.getWriter().write(gson.toJson(job));
     }
 
 }
