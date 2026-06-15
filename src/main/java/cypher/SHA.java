@@ -1,29 +1,30 @@
-package cypher;
+    package cypher;
 
-import java.io.BufferedInputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.InputStream;
-import java.math.BigInteger;
-import java.security.DigestInputStream;
-import java.security.MessageDigest;
+    import java.io.BufferedInputStream;
+    import java.io.File;
+    import java.io.FileInputStream;
+    import java.io.InputStream;
+    import java.math.BigInteger;
+    import java.security.DigestInputStream;
+    import java.security.MessageDigest;
 
-public class SHA {
-    public static final String SHA_1 = "SHA-1";
-    public static final String SHA_224 = "SHA-224";
-    public static final String SHA_256 = "SHA-256";
-    public static final String SHA_384 = "SHA-384";
-    public static final String SHA_512 = "SHA-512";
+    public class SHA {
+        public static final String SHA_1 = "SHA-1";
+        public static final String SHA_224 = "SHA-224";
+        public static final String SHA_256 = "SHA-256";
+        public static final String SHA_384 = "SHA-384";
+        public static final String SHA_512 = "SHA-512";
 
-    public String hashText(String input_text) throws Exception {
-        MessageDigest md = MessageDigest.getInstance("SHA-256");
+        public String hashText(String input_text) throws Exception {
+            // đc java hỗ trợ
+            MessageDigest md = MessageDigest.getInstance("SHA-256");
 
-        byte[] message_digest = md.digest(input_text.getBytes());
+            byte[] message_digest = md.digest(input_text.getBytes());
 
-        BigInteger number = new BigInteger(1, message_digest);
+            BigInteger number = new BigInteger(1, message_digest);
 
-        return number.toString(16);
-    }
+            return number.toString(16);
+        }
 
     public String hashFile(String input_file) throws Exception {
 
