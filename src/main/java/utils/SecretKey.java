@@ -5,39 +5,41 @@ import java.security.Key;
 import java.security.KeyStore;
 import java.util.Base64;
 
-import java.io.FileInputStream;
-import java.security.Key;
-import java.security.KeyStore;
-import java.util.Base64;
-
 public class SecretKey {
+    private static final String KEYSTORE_PATH_ENV = "KEYSTORE_PATH";
+    private static final String KEYSTORE_PASSWORD_ENV = "KEYSTORE_PASSWORD";
+    private static final String SECRET_KEY_ALIAS_ENV = "SECRET_KEY_ALIAS";
+    private static final String SECRET_KEY_PASSWORD_ENV = "SECRET_KEY_PASSWORD";
+    private static final String KEYSTORE_TYPE = "JCEKS";
 
     public static String getSecretKeyAsBase64() {
         try {
-            // Đọc các giá trị từ biến môi trường
-            String keystorePath = System.getenv("KEYSTORE_PATH");
-            String keystorePassword = System.getenv("KEYSTORE_PASSWORD");
-            String secretKeyAlias = System.getenv("SECRET_KEY_ALIAS");
-            String secretKeyPassword = System.getenv("SECRET_KEY_PASSWORD");
+            // Đọc thông tin keystore từ biến môi trường để tránh hard-code dữ liệu nhạy cảm trong source code.
+            String keystorePath = System.getenv(KEYSTORE_PATH_ENV);
+            String keystorePassword = System.getenv(KEYSTORE_PASSWORD_ENV);
+            String secretKeyAlias = System.getenv(SECRET_KEY_ALIAS_ENV);
+            String secretKeyPassword = System.getenv(SECRET_KEY_PASSWORD_ENV);
 
-            // Kiểm tra các biến môi trường bắt buộc
-            if (keystorePath == null || keystorePassword == null || secretKeyAlias == null || secretKeyPassword == null) {
-                throw new IllegalStateException("Thiếu biến môi trường. Vui lòng thiết lập: KEYSTORE_PATH, KEYSTORE_PASSWORD, SECRET_KEY_ALIAS, SECRET_KEY_PASSWORD.");
-            }
+            validateEnvironmentVariables(
+                    keystorePath,
+                    keystorePassword,
+                    secretKeyAlias,
+                    secretKeyPassword
+            );
 
-            // Tải keystore từ file
+            // Tải keystore từ file và tự động đóng FileInputStream sau khi xử lý xong.
             try (FileInputStream fis = new FileInputStream(keystorePath)) {
-                KeyStore keystore = KeyStore.getInstance("JCEKS");
+                KeyStore keystore = KeyStore.getInstance(KEYSTORE_TYPE);
                 keystore.load(fis, keystorePassword.toCharArray());
 
-                // Lấy secret key từ keystore
+                // Lấy secret key theo alias đã cấu hình trong biến môi trường.
                 Key secretKey = keystore.getKey(secretKeyAlias, secretKeyPassword.toCharArray());
 
                 if (secretKey == null) {
-                    throw new RuntimeException("Không tìm thấy secret key với alias: " + secretKeyAlias);
+                    throw new IllegalStateException("Không tìm thấy secret key với alias: " + secretKeyAlias);
                 }
 
-                // Mã hóa secret key dưới dạng Base64
+                // Chuyển secret key sang Base64 để dễ sử dụng trong quá trình tạo hash/xác thực dữ liệu.
                 return Base64.getEncoder().encodeToString(secretKey.getEncoded());
             }
         } catch (Exception e) {
@@ -45,13 +47,27 @@ public class SecretKey {
         }
     }
 
-    public static void main(String[] args) {
-        // Thử nghiệm lấy secret key
-        try {
-            String secretKeyBase64 = getSecretKeyAsBase64();
-            System.out.println("Secret Key (Base64): " + secretKeyBase64);
-        } catch (Exception e) {
-            System.err.println(e.getMessage());
+    private static void validateEnvironmentVariables(
+            String keystorePath,
+            String keystorePassword,
+            String secretKeyAlias,
+            String secretKeyPassword
+    ) {
+        if (isBlank(keystorePath)
+                || isBlank(keystorePassword)
+                || isBlank(secretKeyAlias)
+                || isBlank(secretKeyPassword)) {
+            throw new IllegalStateException(
+                    "Thiếu biến môi trường. Vui lòng thiết lập: "
+                            + KEYSTORE_PATH_ENV + ", "
+                            + KEYSTORE_PASSWORD_ENV + ", "
+                            + SECRET_KEY_ALIAS_ENV + ", "
+                            + SECRET_KEY_PASSWORD_ENV + "."
+            );
         }
+    }
+
+    private static boolean isBlank(String value) {
+        return value == null || value.trim().isEmpty();
     }
 }
