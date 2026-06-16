@@ -1029,7 +1029,7 @@ public class CustomerSerlvet extends HttpServlet {
         String formattedDate = now.format(formatter);
         String hash_code = sha.hashText(message + formattedDate);
         if(cusDao.checkResetCode(customer.getUsername(), hash)){
-            session.setAttribute("confirm_success", "Xác thực mã thành công. Vui lòng xác thực chữ kí điện tử");
+            session.setAttribute("confirm_success", "Xác thực mã thàn   h công. Vui lòng xác thực chữ kí điện tử");
             session.setAttribute("hash_code", hash_code);
             url = "/xacThucChuKyDienTuNhapKhoaMoi.jsp";
         }else{
