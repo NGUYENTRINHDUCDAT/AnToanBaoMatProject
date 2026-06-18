@@ -73,7 +73,7 @@
 
         <li class="nav-item ml-2" style="margin-left: 5px" role="presentation">
             <a class="a " href="../customer?action=createNewKeyPair&id=${customer_login.id}"> <button type="button" class="btn btn-warning">
-                T/b Khóa bị lộ</button></a>
+                Thông báo khóa bị lộ</button></a>
         </li>
 
     </ul>
