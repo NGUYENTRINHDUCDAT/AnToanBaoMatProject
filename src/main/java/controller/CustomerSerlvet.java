@@ -1010,7 +1010,7 @@ public class CustomerSerlvet extends HttpServlet {
                 + req.getContextPath();
         resp.sendRedirect(link + url);
     }
-
+//1
     private void confirmCodeImportNewKey(HttpServletRequest req, HttpServletResponse resp) throws Exception {
         req.setCharacterEncoding("UTF-8");
         resp.setCharacterEncoding("UTF-8");
@@ -1029,7 +1029,7 @@ public class CustomerSerlvet extends HttpServlet {
         String formattedDate = now.format(formatter);
         String hash_code = sha.hashText(message + formattedDate);
         if(cusDao.checkResetCode(customer.getUsername(), hash)){
-            session.setAttribute("confirm_success", "Xác thực mã thàn   h công. Vui lòng xác thực chữ kí điện tử");
+            session.setAttribute("confirm_success", "Xác thực mã thành công. Vui lòng xác thực chữ kí điện tử");
             session.setAttribute("hash_code", hash_code);
             url = "/xacThucChuKyDienTuNhapKhoaMoi.jsp";
         }else{
@@ -1180,9 +1180,7 @@ public class CustomerSerlvet extends HttpServlet {
 
         KeyPairModel keyPairModel = keyPairModelDao.selectKeyPairActiveByCustomerId(customer.getId());
         String url = "/xacThucChuKyDienTuDatHang.jsp";
-        System.out.println("Hash: " + hash);
-        System.out.println("Signature: "+ signature);
-        System.out.println(keyPairModel.getPublicKey());
+
         if (keyPairModel != null){
             DS ds = new DS();
             ds.importPublicKey(keyPairModel.getPublicKey().trim(),"RSA");

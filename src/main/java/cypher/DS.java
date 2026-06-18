@@ -50,7 +50,7 @@ public class DS {
         if (publicKey == null) return null;
         return Base64.getEncoder().encodeToString(publicKey.getEncoded());
     }
-
+// khôi phục pkey
     public void importPublicKey(String publicKeyStr, String alg) throws Exception {
         byte[] keyBytes = Base64.getDecoder().decode(publicKeyStr);
         KeyFactory keyFactory = KeyFactory.getInstance(alg);
